@@ -12,7 +12,7 @@ namespace TimeMultiplier
         {
             if (_eventHandler != null)
             {
-                _brain = _eventHandler.GetFirstBrain();
+                _brain = _eventHandler.GetBrain();
             }
         }
 

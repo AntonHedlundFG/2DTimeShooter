@@ -11,6 +11,9 @@ public class PlayerAbilityHandler : MonoBehaviour
     [SerializeField] private KeyCode[] _abilityHotkeys = new KeyCode[ABILITYCOUNT];
 
     [SerializeField] public TMSystemHandler TMSystemHandler;
+    [SerializeField] private GamePauseSystem _gamePauseSystem;
+
+    public float CooldownTime;
 
     private void OnValidate()
     {
@@ -28,7 +31,16 @@ public class PlayerAbilityHandler : MonoBehaviour
 
     private void Update()
     {
-        CheckHotkeys();
+        if (_gamePauseSystem.GetPauseState() != GamePauseSystem.PauseStates.Pause)
+        {
+            CheckHotkeys();
+            UpdateCooldown();
+        }
+    }
+
+    private void UpdateCooldown()
+    {
+        CooldownTime += Time.deltaTime;
     }
 
     private void CheckHotkeys()
@@ -52,6 +64,7 @@ public class PlayerAbilityHandler : MonoBehaviour
         {
             ability?.OnEquip(this);
         }
+        CooldownTime = 0f;
     }
 
     public Sprite GetSprite(int abilityIndex)

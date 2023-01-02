@@ -16,7 +16,7 @@ public class ProjectileAbility : Ability
 
     public override void OnKeyDown()
     {
-        if (Time.time >= _lastUseTime + _cooldown)
+        if (_playerAbilityHandler.CooldownTime >= _lastUseTime + _cooldown)
         {
             Fire();
         }
@@ -24,7 +24,7 @@ public class ProjectileAbility : Ability
 
     private void Fire()
     {
-        _lastUseTime = Time.time; 
+        _lastUseTime = _playerAbilityHandler.CooldownTime; 
         _tmEvent.ActivateEvent(_playerAbilityHandler.TMSystemHandler);
 
         GameObject proj = Instantiate(_projectilePrefab, _playerAbilityHandler.transform.position, _playerAbilityHandler.transform.rotation);
@@ -35,7 +35,7 @@ public class ProjectileAbility : Ability
     public override void OnEquip(PlayerAbilityHandler playerAbilityHandler)
     {
         _playerAbilityHandler = playerAbilityHandler;
-        _lastUseTime = Time.time;
+        _lastUseTime = _playerAbilityHandler.CooldownTime;
     }
 
     public override void OnUnEquip() { }

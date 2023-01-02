@@ -17,14 +17,14 @@ public class TeleportAbility : Ability
     public override void OnEquip(PlayerAbilityHandler playerAbilityHandler)
     {
         _playerAbilityHandler = playerAbilityHandler;
-        _lastUseTime = Time.time;
+        _lastUseTime = _playerAbilityHandler.CooldownTime;
     }
 
     public override void OnKeyDown()
     {
-        if (Time.time >= _lastUseTime + _cooldown)
+        if (_playerAbilityHandler.CooldownTime >= _lastUseTime + _cooldown)
         {
-            _lastUseTime = Time.time;
+            _lastUseTime = _playerAbilityHandler.CooldownTime;
             _tmEvent.ActivateEvent(_playerAbilityHandler.TMSystemHandler);
             Teleport();
         }

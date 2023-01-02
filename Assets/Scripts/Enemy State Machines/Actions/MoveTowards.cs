@@ -17,7 +17,7 @@ public class MoveTowards : Action
 
     public override void OnEnter()
     {
-        brain = _tmSystemHandler.GetFirstBrain();
+        brain = _tmSystemHandler.GetBrain();
         if (TargetIsPlayer)
         {
             Target = _playerFinder.GetPlayer();

@@ -14,6 +14,9 @@ namespace TimeMultiplier
         [SerializeField] [Range(1f, 100f)] private float _acceleration = 10f;
         [SerializeField] [Range(0.1f, 10f)] private float _maxMult = 1;
 
+        [SerializeField] private GamePauseSystem _gamePauseSystem;
+        private Vector2 _pauseSpeedStore;
+
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -21,12 +24,26 @@ namespace TimeMultiplier
             _rb.gravityScale = 0;
 
             _staticMod = GetComponent<TMStaticModifier>();
+            _pauseSpeedStore = Vector2.zero;
         }
 
         private void Update()
         {
-            MoveFromInput();
-            UpdateMultiplier();
+            if (_gamePauseSystem.GetPauseState() == GamePauseSystem.PauseStates.Play)
+            {
+                if (_pauseSpeedStore != Vector2.zero)
+                {
+                    _rb.velocity = _pauseSpeedStore;
+                    _pauseSpeedStore = Vector2.zero;
+                }
+                MoveFromInput();
+                UpdateMultiplier();
+            } else
+            {
+                _pauseSpeedStore = (_pauseSpeedStore == Vector2.zero) ? _rb.velocity : _pauseSpeedStore;
+                _rb.velocity = Vector2.zero;
+            }
+            
         }
 
         private void MoveFromInput()

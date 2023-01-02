@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,14 +13,15 @@ namespace TimeMultiplier
         private List<TMStaticModifier> _staticModifiers = new List<TMStaticModifier>();
 
         [SerializeField] private float TimeMultiplier;
+        private bool IsPaused = false;
 
-        public float GetMultiplier() => TimeMultiplier;
+        public float GetMultiplier() => !IsPaused ? TimeMultiplier : 0;
 
-        private void OnEnable()
+        private void Awake()
         {
             if (_targetEventHandler != null)
             {
-                _targetEventHandler.AddBrain(this);
+                _targetEventHandler.SetBrain(this);
                 _subscribedEventHandler = _targetEventHandler;
             }
 
@@ -32,6 +34,11 @@ namespace TimeMultiplier
                 _subscribedEventHandler.RemoveBrain(this);
                 _subscribedEventHandler = null;
             }
+        }
+
+        public void SetPauseState(GamePauseSystem.PauseStates state)
+        {
+            IsPaused = (state == GamePauseSystem.PauseStates.Pause);
         }
 
         public void RaiseStaticModifier(TMStaticModifier modifier)

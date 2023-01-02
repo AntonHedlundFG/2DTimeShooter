@@ -19,7 +19,7 @@ public class Spin : Action
 
     public override void OnEnter()
     {
-        _brain = _tmSystemHandler.GetFirstBrain();
+        _brain = _tmSystemHandler.GetBrain();
     }
 
     public override void OnUpdate()
