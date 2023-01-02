@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 561536440492e35438f8839b878aa5c4, type: 3}
+  m_Name: Teleport
+  m_EditorClassIdentifier: 
+  SymbolSprite: {fileID: 21300000, guid: f817cadc910c3ee499d6f3d09633aa4c, type: 3}
+  _cooldown: 10
+  _distance: 10
+  _canPassThroughObjects: 1
+  _mask:
+    serializedVersion: 2
+    m_Bits: 512
+  _tmEvent: {fileID: 11400000, guid: c8acfb0bfa40d6a4d9f889356fbe8e91, type: 2}
